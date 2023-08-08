@@ -12,7 +12,12 @@ type Route =
   | { route: "/admin"; search: {} }
   | { route: "/admin/users"; search: {} };
 
-type RoutesObject = unknown;
+/**
+ * This is useful, but less powerful than solution 2:
+ */
+type RoutesObject = {
+  [R in Route["route"]]: Extract<Route, { route: R }>["search"];
+};
 
 type tests = [
   Expect<
